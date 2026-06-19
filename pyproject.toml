@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling>=1.21.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "weav-ai-runtime"
+version = "0.1.0"
+description = "Runtime assembly contracts for WeavInt AI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "WeavInt Authors" }]
+dependencies = [
+  "weav-ai-core @ git+https://github.com/zeturn/weav-ai-core.git@main",
+  "weav-ai-providers @ git+https://github.com/zeturn/weav-ai-providers.git@main",
+  "pydantic>=2.7.0",
+  "typing-extensions>=4.7.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["weav_ai_runtime"]
