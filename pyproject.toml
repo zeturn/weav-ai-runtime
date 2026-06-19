@@ -23,6 +23,9 @@ dev = [
   "pytest>=7.4.0",
 ]
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["weav_ai_runtime"]
 
