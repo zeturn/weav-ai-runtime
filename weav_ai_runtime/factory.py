@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 
 from weav_ai_core.llm import LLMRouter
@@ -7,6 +8,8 @@ from weav_ai_providers import build_provider
 
 from .contracts import AIRuntimeContext, CredentialStore, ModelCatalog, ModelSpec, UsageSink
 
+
+logger = logging.getLogger(__name__)
 
 SUPPORTED_CHAT_PROVIDERS = ("openai", "anthropic", "google", "ollama", "deepseek", "qwen", "zhipu")
 
@@ -29,7 +32,8 @@ def build_router(context: AIRuntimeContext, credentials: CredentialStore) -> LLM
             kwargs["base_url"] = base_url
         try:
             router.register(provider, build_provider(provider, **kwargs))
-        except Exception:
+        except Exception as exc:
+            logger.warning("Skipping AI provider %s after registration failure: %s", provider, exc)
             continue
     return router
 
@@ -48,4 +52,3 @@ class AIRuntime:
         if self.model_catalog is not None:
             return self.model_catalog.resolve_model(self.context, provider=provider, model=model)
         return ModelSpec(provider=provider or "openai", model=model or "gpt-4o")
-
