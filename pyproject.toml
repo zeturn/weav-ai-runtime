@@ -17,5 +17,17 @@ dependencies = [
   "typing-extensions>=4.7.1",
 ]
 
+[project.optional-dependencies]
+dev = [
+  "build>=1.2.1",
+  "pytest>=7.4.0",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["weav_ai_runtime"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
