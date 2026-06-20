@@ -45,6 +45,23 @@ router = runtime.build_router()
 model = runtime.resolve_model()
 ```
 
+## APICred Adapter
+
+APICred exposes an OpenAI-compatible `/v1` surface. The runtime can treat APICred as the `openai` provider while APICred handles upstream credential selection and billing:
+
+```python
+from weav_ai_runtime import build_apicred_runtime
+
+runtime = build_apicred_runtime(
+    base_url="http://localhost:8103/v1",
+    access_token="apicred-token",
+    tenant="default",
+    purpose="crawler-planning",
+)
+router = runtime.build_router()
+model = runtime.resolve_model()
+```
+
 ## Development
 
 Run the local quality checks:
